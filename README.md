@@ -5,8 +5,9 @@ PasteyShortcuts adds the following configurable hotkeys:
 
 ## Installing
 1. Click [here](https://github.com/FreddieDev/PasteyShortcuts/archive/master.zip) to download the app
-2. Run `install.bat`
-3. You can now delete the downloaded files to cleanup
+2. Unzip the file
+3. Run `install.bat`
+4. You can now delete the downloaded files to cleanup
 
 ## Disabling Startup
 By default, PasteyShortcuts launches on startup. This can be disabled via the startup tab in Task Manager.
