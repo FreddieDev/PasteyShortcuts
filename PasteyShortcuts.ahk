@@ -5,6 +5,11 @@ SendMode Input  ; Recommended for new scripts due to its superior speed and reli
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 SettingsName := "PasteyShortcuts.ini"
 
+; Global vars (leave empty)
+EmailAddress :=
+EmployeeNumber :=
+EmailAddressKey :=
+
 ; Cleanup tray menu items
 Menu, Tray, NoStandard
 
@@ -21,22 +26,41 @@ GEAR_CHECKLIST_ICON := 110
 Menu, Tray, Icon, imageres.dll, %GEAR_CHECKLIST_ICON%
 
 
+FirstTimeSetup(SettingsName) {
+	InputBox, EmailAddress, PasteyShortcuts, Enter your email address,,310,150
+	InputBox, EmployeeNumber, PasteyShortcuts, Enter your employee number (leave blank to disable # hotkey),,310,150
+	
+	; Write user's settings
+	IniWrite, %EmailAddress%, %SettingsName%, Details, EmailAddress
+	IniWrite, %EmployeeNumber%, %SettingsName%, Details, EmployeeNumber
+	
+	; Write default hotkeys
+	IniWrite, @, %SettingsName%, Hotkeys, PasteEmailAddress
+	IniWrite, #, %SettingsName%, Hotkeys, PasteEmployeeNumber
+}
+
+; If setting file doesn't exist run first time setup
 if (!FileExist(SettingsName)) {
 	MsgBox, %SettingsName% not found!
-	ExitApp
+	FirstTimeSetup(SettingsName)
 }
 
 ; Load settings into global variables
-EmailAddress :=
-EmployeeNumber :=
-EmailAddressKey :=
 IniRead, EmailAddress, %SettingsName%, Details, EmailAddress
 IniRead, EmployeeNumber, %SettingsName%, Details, EmployeeNumber
 IniRead, EmailAddressKey, %SettingsName%, Hotkeys, PasteEmailAddress
 IniRead, EmployeeNumberKey, %SettingsName%, Hotkeys, PasteEmployeeNumber
 
+
+; Re-run first time setup until user settings are valid
+while (EmailAddress = "") {
+	FirstTimeSetup(SettingsName)
+}
+
+; Register hotkeys
 Hotkey, ~$%EmailAddressKey%, EmailAddressKeyHandler
 Hotkey, ~$%EmployeeNumberKey%, EmployeeNumberKeyHandler
+
 
 return ; Stop handlers running on script start
 

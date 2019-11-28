@@ -32,6 +32,10 @@ del %SCRIPT%
 
 
 echo.
+echo Starting app...
+start "" "%installDir%\PasteyShortcuts.exe"
+
+echo.
 echo.
 echo Done! Press any key to quit...
 pause>nul

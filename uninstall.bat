@@ -9,6 +9,10 @@ set "installDir=%USERPROFILE%\Documents\PasteyShortcuts"
 set "startupDir=%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup"
 
 echo.
+echo Stopping app...
+taskkill /F /IM  PasteyShortcuts.exe
+
+echo.
 echo Removing from startup...
 del "%startupDir%\PasteyShortcuts.lnk"
 
