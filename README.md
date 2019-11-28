@@ -15,7 +15,7 @@ By default, PasteyShortcuts launches on startup. This can be disabled via the st
 ## Removing
 1. Download and run `uninstall.bat`
 
-## Editing manually (advanced)
+## Editing settings manually (advanced)
 Simply open `PasteyShortcuts.ini` in Notepad and change values. Here, you can:
 - Change your email address
 - Change your employee number (to any text you want)

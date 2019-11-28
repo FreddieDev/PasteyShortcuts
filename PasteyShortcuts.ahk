@@ -13,6 +13,13 @@ EmailAddressKey :=
 ; Cleanup tray menu items
 Menu, Tray, NoStandard
 
+; Add change settings button
+MenuChangeSettingsText := "Change settings"
+Menu, Tray, Add, %MenuChangeSettingsText%, MenuHandler
+
+; Creates a separator line
+Menu, Tray, Add
+
 ; Add option to reload the current script (in case changes were made)
 MenuReloadScriptText := "Reload script"
 Menu, Tray, Add, %MenuReloadScriptText%, MenuHandler
@@ -24,6 +31,7 @@ Menu, Tray, Add, %MenuExitScriptText%, MenuHandler
 ; Change the tray icon
 GEAR_CHECKLIST_ICON := 110
 Menu, Tray, Icon, imageres.dll, %GEAR_CHECKLIST_ICON%
+
 
 
 FirstTimeSetup(SettingsName) {
@@ -79,6 +87,8 @@ MenuHandler:
 		return
 	} else if (A_ThisMenuItem = MenuExitScriptText) {
 		ExitApp
+	} else if (A_ThisMenuItem = MenuChangeSettingsText) {
+		FirstTimeSetup(SettingsName)
 	}
 
 	return
