@@ -28,6 +28,14 @@ Menu, Tray, Icon, imageres.dll, %GEAR_CHECKLIST_ICON%
 
 FirstTimeSetup(SettingsName) {
 	InputBox, EmailAddress, PasteyShortcuts, Enter your email address,,310,150
+	
+	; Re-run setup until user settings are valid
+	while (StrLen(EmailAddress) < 3) {
+		MsgBox, Invalid email address entered!
+		FirstTimeSetup(SettingsName)
+		return
+	}
+
 	InputBox, EmployeeNumber, PasteyShortcuts, Enter your employee number (leave blank to disable # hotkey),,310,150
 	
 	; Write user's settings
@@ -37,11 +45,13 @@ FirstTimeSetup(SettingsName) {
 	; Write default hotkeys
 	IniWrite, @, %SettingsName%, Hotkeys, PasteEmailAddress
 	IniWrite, #, %SettingsName%, Hotkeys, PasteEmployeeNumber
+	
+	MsgBox, Setup complete! Double press @ to paste your email or # to paste your employee number!
 }
 
 ; If setting file doesn't exist run first time setup
 if (!FileExist(SettingsName)) {
-	MsgBox, %SettingsName% not found!
+	MsgBox, Thanks for downloading my tool! To use it, you must now enter your details...
 	FirstTimeSetup(SettingsName)
 }
 
@@ -52,14 +62,12 @@ IniRead, EmailAddressKey, %SettingsName%, Hotkeys, PasteEmailAddress
 IniRead, EmployeeNumberKey, %SettingsName%, Hotkeys, PasteEmployeeNumber
 
 
-; Re-run first time setup until user settings are valid
-while (EmailAddress = "") {
-	FirstTimeSetup(SettingsName)
-}
 
 ; Register hotkeys
 Hotkey, ~$%EmailAddressKey%, EmailAddressKeyHandler
-Hotkey, ~$%EmployeeNumberKey%, EmployeeNumberKeyHandler
+if (StrLen(EmployeeNumber) != 0) { ; Only register employee number if a valid string is set
+	Hotkey, ~$%EmployeeNumberKey%, EmployeeNumberKeyHandler
+}
 
 
 return ; Stop handlers running on script start
