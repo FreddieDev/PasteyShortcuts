@@ -4,7 +4,7 @@ PasteyShortcuts adds the following configurable hotkeys:
 - Double tap `#` to paste your employee number
 
 ## Installing
-1. Click [here](https://github.com/FreddieDev/PasteyShortcuts/archive/master.zip) to download the app
+1. Click [here](../../archive/master.zip) to download the app
 2. Unzip the file
 3. Run `install.bat`
 4. You can now delete the downloaded files to cleanup
