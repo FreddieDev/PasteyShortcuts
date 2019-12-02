@@ -13,7 +13,7 @@ PasteyShortcuts adds the following configurable hotkeys:
 By default, PasteyShortcuts launches on startup. This can be disabled via the startup tab in Task Manager.
 
 ## Removing
-1. Download and run `uninstall.bat`
+Download and run `uninstall.bat`
 
 ## Editing settings manually (advanced)
 Simply open `PasteyShortcuts.ini` in Notepad and change values. Here, you can:
