@@ -38,7 +38,7 @@ FirstTimeSetup(SettingsName) {
 	InputBox, EmailAddress, PasteyShortcuts, Enter your email address,,310,150
 	
 	; Re-run setup until user settings are valid
-	while (StrLen(EmailAddress) < 3) {
+	if (StrLen(EmailAddress) < 3) {
 		MsgBox, Invalid email address entered!
 		FirstTimeSetup(SettingsName)
 		return
