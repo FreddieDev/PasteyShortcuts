@@ -3,6 +3,11 @@ PasteyShortcuts adds the following configurable hotkeys:
 - Double tap `@` to paste your email address
 - Double tap `#` to paste your employee number
 
+PasteyShortcuts also adds media controls:
+- `CTRL+ALT+SPACE` to pause/play
+- `CTRL+ALT+LEFT ARROW` for previous
+- `CTRL+ALT+RIGHT ARROW` for next
+
 ## Installing
 1. Click [here](../../archive/master.zip) to download the app
 2. Unzip the file
