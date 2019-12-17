@@ -8,10 +8,19 @@ mode con: cols=50 lines=20
 set "installDir=%USERPROFILE%\Documents\PasteyShortcuts"
 set "startupDir=%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup"
 
+REM Make install folder if it doesn't exist
 IF NOT EXIST %installDir% (
 	echo.
 	echo Making PasteyShortcuts folder...
 	mkdir %installDir%
+)
+
+REM Kill PasteyShortcuts.exe if it's running
+tasklist /FI "IMAGENAME eq PasteyShortcuts.exe" 2>NUL | find /I /N "PasteyShortcuts.exe">NUL
+if "%ERRORLEVEL%"=="0" (
+	echo.
+	echo Closing open instances of PasteyShortcuts...
+	taskkill /F /IM PasteyShortcuts.exe
 )
 
 echo.

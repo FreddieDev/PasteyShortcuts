@@ -11,6 +11,7 @@ EmployeeNumber :=
 EmailAddressKey :=
 
 ; Cleanup tray menu items
+Menu, Tray, Tip, PasteyShortcuts
 Menu, Tray, NoStandard
 
 ; Add change settings button
