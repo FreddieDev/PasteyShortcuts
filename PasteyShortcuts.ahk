@@ -21,11 +21,12 @@ Menu, Tray, Add, %MenuChangeSettingsText%, MenuHandler
 Menu, Tray, Add
 
 ; Add option to reload the current script (in case changes were made)
-MenuReloadScriptText := "Reload script"
+MenuReloadScriptText := "Restart"
 Menu, Tray, Add, %MenuReloadScriptText%, MenuHandler
+Menu, Tray, Default, %MenuReloadScriptText%
 
 ; Add option to exit the current script
-MenuExitScriptText := "Exit script"
+MenuExitScriptText := "Exit"
 Menu, Tray, Add, %MenuExitScriptText%, MenuHandler
 
 ; Change the tray icon
