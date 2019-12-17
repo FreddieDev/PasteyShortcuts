@@ -8,9 +8,11 @@ mode con: cols=50 lines=20
 set "installDir=%USERPROFILE%\Documents\PasteyShortcuts"
 set "startupDir=%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup"
 
-echo.
-echo Making PasteyShortcuts folder...
-mkdir %installDir%
+IF NOT EXIST %installDir% (
+	echo.
+	echo Making PasteyShortcuts folder...
+	mkdir %installDir%
+)
 
 echo.
 echo Installing files...
