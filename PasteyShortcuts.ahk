@@ -3,12 +3,19 @@
 #NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
-SettingsName := "PasteyShortcuts.ini"
+
+#Include lib\Settings.ahk
+
+
 
 ; Global vars (leave empty)
-EmailAddress :=
-EmployeeNumber :=
-EmailAddressKey :=
+global EmailAddress :=
+global EmployeeNumber :=
+global EmailAddressKey :=
+global EmployeeNumberKey :=
+
+; Vars
+SettingsName := "PasteyShortcuts.ini"
 
 ; Cleanup tray menu items
 Menu, Tray, Tip, PasteyShortcuts
@@ -36,42 +43,23 @@ Menu, Tray, Icon, imageres.dll, %GEAR_CHECKLIST_ICON%
 
 
 
-FirstTimeSetup(SettingsName) {
-	InputBox, EmailAddress, PasteyShortcuts, Enter your email address,,310,150
+FirstTimeSetup() {
+	global
+	Settings.Change()
 	
-	; Re-run setup until user settings are valid
-	if (StrLen(EmailAddress) < 3) {
-		MsgBox, Invalid email address entered!
-		FirstTimeSetup(SettingsName)
-		return
-	}
-
-	InputBox, EmployeeNumber, PasteyShortcuts, Enter your employee number (leave blank to disable # hotkey),,310,150
-	
-	; Write user's settings
-	IniWrite, %EmailAddress%, %SettingsName%, Details, EmailAddress
-	IniWrite, %EmployeeNumber%, %SettingsName%, Details, EmployeeNumber
-	
-	; Write default hotkeys
-	IniWrite, @, %SettingsName%, Hotkeys, PasteEmailAddress
-	IniWrite, #, %SettingsName%, Hotkeys, PasteEmployeeNumber
-	
-	MsgBox, Setup complete! Double press @ to paste your email or # to paste your employee number!
 }
 
 ; If setting file doesn't exist run first time setup
 if (!FileExist(SettingsName)) {
-	MsgBox, Thanks for downloading my tool! To use it, you must now enter your details...
-	FirstTimeSetup(SettingsName)
+	MsgBox, Thanks for downloading my tool! To use it, you must enter your details...
+	FirstTimeSetup()
+} else {
+	Settings.Load()
 }
 
-; Load settings into global variables
-IniRead, EmailAddress, %SettingsName%, Details, EmailAddress
-IniRead, EmployeeNumber, %SettingsName%, Details, EmployeeNumber
+; Load hotkeys into global variables
 IniRead, EmailAddressKey, %SettingsName%, Hotkeys, PasteEmailAddress
 IniRead, EmployeeNumberKey, %SettingsName%, Hotkeys, PasteEmployeeNumber
-
-
 
 ; Register hotkeys
 Hotkey, ~$%EmailAddressKey%, EmailAddressKeyHandler
@@ -83,6 +71,25 @@ if (StrLen(EmployeeNumber) != 0) { ; Only register employee number if a valid st
 return ; Stop handlers running on script start
 
 
+GuiClose:
+	Gui, Destroy
+	return
+
+ButtonSave:
+	Gui, Submit ; Save the input from the user to each control's associated variable.
+	
+	; Re-run setup until user settings are valid
+	if (StrLen(EmailAddress) < 3) {
+		MsgBox, Invalid email address entered!
+		return
+	}
+	
+	Settings.Save()
+	MsgBox, Setup complete! Double press %EmailAddressKey% to paste your email or %EmployeeNumberKey% to paste your employee number!
+	Gui, Destroy
+	return
+
+
 MenuHandler:
 	if (A_ThisMenuItem = MenuReloadScriptText) {
 		Reload
@@ -90,7 +97,7 @@ MenuHandler:
 	} else if (A_ThisMenuItem = MenuExitScriptText) {
 		ExitApp
 	} else if (A_ThisMenuItem = MenuChangeSettingsText) {
-		FirstTimeSetup(SettingsName)
+		FirstTimeSetup()
 	}
 
 	return
