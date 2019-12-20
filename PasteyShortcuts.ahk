@@ -13,6 +13,7 @@ global EmailAddress :=
 global EmployeeNumber :=
 global EmailAddressKey :=
 global EmployeeNumberKey :=
+global UseMediaControls :=
 
 ; Vars
 SettingsName := "PasteyShortcuts.ini"
@@ -67,6 +68,11 @@ if (StrLen(EmployeeNumber) != 0) { ; Only register employee number if a valid st
 	Hotkey, ~$%EmployeeNumberKey%, EmployeeNumberKeyHandler
 }
 
+; Register media keys
+if (UseMediaControls) {
+	Hotkey, ^!Space, Media_Play_Pause_Handler ; CTRL+ALT+SPACE play/pause
+}
+
 
 return ; Stop handlers running on script start
 
@@ -76,7 +82,7 @@ GuiClose:
 	return
 
 ButtonSave:
-	Gui, Submit ; Save the input from the user to each control's associated variable.
+	Gui, Submit, NoHide ; Save the input from the user to each control's associated variable.
 	
 	; Re-run setup until user settings are valid
 	if (StrLen(EmailAddress) < 3) {
@@ -87,6 +93,11 @@ ButtonSave:
 	Settings.Save()
 	MsgBox, Setup complete! Double press %EmailAddressKey% to paste your email or %EmployeeNumberKey% to paste your employee number!
 	Gui, Destroy
+	
+	
+	; Restart script to load changed hotkeys
+	Reload
+	
 	return
 
 
@@ -103,14 +114,14 @@ MenuHandler:
 	return
 	
 
-; CTRL + ALT + SPACE to pause media
-^!Space::
-	Send {Media_Play_Pause}
+
+Media_Play_Pause_Handler:
+	Send, {Media_Play_Pause}
 	return
 
 ; CTRL+ALT+Left arrow for media previous
 ^!Left::
-	Send {Media_Prev
+	Send {Media_Prev}
 	return
 	
 ; CTRL+ALT+Left arrow for media next
