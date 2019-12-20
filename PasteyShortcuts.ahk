@@ -44,16 +44,10 @@ Menu, Tray, Icon, imageres.dll, %GEAR_CHECKLIST_ICON%
 
 
 
-FirstTimeSetup() {
-	global
-	Settings.Change()
-	
-}
-
 ; If setting file doesn't exist run first time setup
 if (!FileExist(SettingsName)) {
 	MsgBox, Thanks for downloading my tool! To use it, you must enter your details...
-	FirstTimeSetup()
+	Settings.Change()
 } else {
 	Settings.Load()
 }
@@ -71,6 +65,8 @@ if (StrLen(EmployeeNumber) != 0) { ; Only register employee number if a valid st
 ; Register media keys
 if (UseMediaControls) {
 	Hotkey, ^!Space, Media_Play_Pause_Handler ; CTRL+ALT+SPACE play/pause
+	Hotkey, ^!Left, Media_Prev_Handler ; CTRL+ALT+SPACE previous song
+	Hotkey, ^!Right, Media_Next_Handler ; CTRL+ALT+RIGHT next song
 }
 
 
@@ -108,24 +104,20 @@ MenuHandler:
 	} else if (A_ThisMenuItem = MenuExitScriptText) {
 		ExitApp
 	} else if (A_ThisMenuItem = MenuChangeSettingsText) {
-		FirstTimeSetup()
+		Settings.Change()
 	}
 
 	return
 	
 
-
+; Media key senders
 Media_Play_Pause_Handler:
 	Send, {Media_Play_Pause}
 	return
-
-; CTRL+ALT+Left arrow for media previous
-^!Left::
+Media_Prev_Handler:
 	Send {Media_Prev}
 	return
-	
-; CTRL+ALT+Left arrow for media next
-^!Right::
+Media_Next_Handler:
 	Send {Media_Next}
 	return
 
