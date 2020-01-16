@@ -21,7 +21,7 @@ echo Removing PasteyShortcuts files...
 rmdir %installDir% /S /Q
 
 
-echo.
-echo.
-echo Done! Press any key to quit...
-pause>nul
+REM echo.
+REM echo.
+REM echo Done! Press any key to quit...
+REM pause>nul

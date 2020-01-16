@@ -10,15 +10,14 @@ PasteyShortcuts also adds media controls:
 
 ## Installing
 1. Click [here](../../archive/master.zip) to download the app
-2. Unzip the file
-3. Run `install.bat`
-4. You can now delete the downloaded files to cleanup
+2. Unzip the file and run `installer.bat`
+3. Fill in all the prompted fields
+	- If you've made mistakes, right click the tray icon and select "Change Settings" to reconfigure
+	- You can now delete the downloaded files to cleanup
 
-## Disabling Startup
-By default, PasteyShortcuts launches on startup. This can be disabled via the startup tab in Task Manager.
-
-## Removing
-Download and run `uninstall.bat`
+### Uninstalling/repairing
+1. Click [here](../../archive/master.zip) to download the app
+2. Unzip the file and run `installer.bat`
 
 ## Editing settings manually (advanced)
 Simply open `PasteyShortcuts.ini` in Notepad and change values. Here, you can:
