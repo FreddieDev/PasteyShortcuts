@@ -7,6 +7,8 @@ PasteyShortcuts also adds media controls:
 - `CTRL+ALT+SPACE` to pause/play
 - `CTRL+ALT+LEFT ARROW` for previous
 - `CTRL+ALT+RIGHT ARROW` for next
+- `CTRL+ALT+RIGHT UP` to increase volume
+- `CTRL+ALT+RIGHT DOWN` to decrease volume
 
 ## Installing
 1. Click [here](../../archive/master.zip) to download the app

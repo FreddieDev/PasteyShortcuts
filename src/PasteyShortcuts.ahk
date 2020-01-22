@@ -67,6 +67,8 @@ if (UseMediaControls) {
 	Hotkey, ^!Space, Media_Play_Pause_Handler ; CTRL+ALT+SPACE play/pause
 	Hotkey, ^!Left, Media_Prev_Handler ; CTRL+ALT+SPACE previous song
 	Hotkey, ^!Right, Media_Next_Handler ; CTRL+ALT+RIGHT next song
+	Hotkey, ^!Up, Media_VolUp_Handler ; CTRL+ALT+UP volume increase
+	Hotkey, ^!Down, Media_VolDown_Handler ; CTRL+ALT+DOWN volume decrease
 }
 
 
@@ -119,6 +121,13 @@ Media_Prev_Handler:
 	return
 Media_Next_Handler:
 	Send {Media_Next}
+	return
+Media_VolUp_Handler:
+	; SoundSet, +6 ; Customisable but doesn't show Windows volume OSD
+	Send {Volume_Up}
+	return
+Media_VolDown_Handler:
+	Send {Volume_Down}
 	return
 
 
