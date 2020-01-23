@@ -11,8 +11,8 @@ PasteyShortcuts also adds media controls:
 - `CTRL+ALT+DOWN ARROW` to decrease volume
 
 ... and brightness controls (for laptops):
-- `CTRL+ALT+UP ARROW` to increase brightness
-- `CTRL+ALT+DOWN ARROW` to decrease brightness
+- `CTRL+SHIFT+UP ARROW` to increase brightness
+- `CTRL+SHIFT+DOWN ARROW` to decrease brightness
 
 
 ## Installing
