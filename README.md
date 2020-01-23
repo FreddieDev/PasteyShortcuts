@@ -7,8 +7,13 @@ PasteyShortcuts also adds media controls:
 - `CTRL+ALT+SPACE` to pause/play
 - `CTRL+ALT+LEFT ARROW` for previous
 - `CTRL+ALT+RIGHT ARROW` for next
-- `CTRL+ALT+RIGHT UP` to increase volume
-- `CTRL+ALT+RIGHT DOWN` to decrease volume
+- `CTRL+ALT+UP ARROW` to increase volume
+- `CTRL+ALT+DOWN ARROW` to decrease volume
+
+... and brightness controls (for laptops):
+- `CTRL+ALT+UP ARROW` to increase brightness
+- `CTRL+ALT+DOWN ARROW` to decrease brightness
+
 
 ## Installing
 1. Click [here](../../archive/master.zip) to download the app

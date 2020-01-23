@@ -4,6 +4,7 @@
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
+#Include lib\BrightnessSetter.ahk
 #Include lib\Settings.ahk
 
 
@@ -14,6 +15,7 @@ global EmployeeNumber :=
 global EmailAddressKey :=
 global EmployeeNumberKey :=
 global UseMediaControls :=
+global UseBrightnessControls :=
 
 ; Vars
 SettingsName := "PasteyShortcuts.ini"
@@ -25,6 +27,7 @@ Menu, Tray, NoStandard
 ; Add change settings button
 MenuChangeSettingsText := "Change settings"
 Menu, Tray, Add, %MenuChangeSettingsText%, MenuHandler
+Menu, Tray, Default, %MenuChangeSettingsText%
 
 ; Creates a separator line
 Menu, Tray, Add
@@ -32,7 +35,6 @@ Menu, Tray, Add
 ; Add option to reload the current script (in case changes were made)
 MenuReloadScriptText := "Restart"
 Menu, Tray, Add, %MenuReloadScriptText%, MenuHandler
-Menu, Tray, Default, %MenuReloadScriptText%
 
 ; Add option to exit the current script
 MenuExitScriptText := "Exit"
@@ -71,9 +73,21 @@ if (UseMediaControls) {
 	Hotkey, ^!Down, Media_VolDown_Handler ; CTRL+ALT+DOWN volume decrease
 }
 
+; Register brightness keys
+if (UseBrightnessControls) {
+	Hotkey, ^+Up, Brightness_Up_Handler ; CTRL+SHIFT+UP increase brightness
+	Hotkey, ^+Down, Brightness_Down_Handler ; CTRL+SHIFT+DOWN decrease brightness
+}
+
 
 return ; Stop handlers running on script start
 
+
+
+; Add escape key hotkey to dismiss settings UI
+GuiEscape: 
+	Gui, Destroy 
+	return
 
 GuiClose:
 	Gui, Destroy
@@ -112,7 +126,7 @@ MenuHandler:
 	return
 	
 
-; Media key senders
+; Media hotkey handlers
 Media_Play_Pause_Handler:
 	Send, {Media_Play_Pause}
 	return
@@ -129,6 +143,16 @@ Media_VolUp_Handler:
 Media_VolDown_Handler:
 	Send {Volume_Down}
 	return
+	
+
+; Brightness hotkey handlers
+Brightness_Up_Handler:
+	BrightnessSetter.SetBrightness(+10)
+	return
+Brightness_Down_Handler:
+	BrightnessSetter.SetBrightness(-10)
+	return
+	
 
 
 ; Press @ twice to paste email

@@ -10,11 +10,10 @@
 		Gui, Add, Edit, vEmployeeNumber w110, %EmployeeNumber%
 		
 		Gui, Add, Text,,
-		if (UseMediaControls)
-			Gui, Add, Checkbox, Checked vUseMediaControls, Enable media control hotkeys
-		else
-			Gui, Add, Checkbox, vUseMediaControls, Enable media control hotkeys
-		
+		Gui, Add, Checkbox, Checked%UseMediaControls% vUseMediaControls, Enable media control hotkeys
+		Gui, Add, Checkbox, Checked%UseBrightnessControls% vUseBrightnessControls, Enable brightness control hotkeys
+
+		Gui, Add, Link,, Click <a href="https://github.com/FreddieDev/PasteyShortcuts/blob/master/README.md#welcome-to-pasteyshortcuts">here</a> for a list of hotkeys
 		
 		; Save button
 		gui, add, text, section
@@ -36,6 +35,7 @@
 		
 		; Write default hotkeys
 		IniWrite, %UseMediaControls%, %SettingsName%, Hotkeys, UseMediaControls
+		IniWrite, %UseBrightnessControls%, %SettingsName%, Hotkeys, UseBrightnessControls
 		IniWrite, @, %SettingsName%, Hotkeys, PasteEmailAddress
 		IniWrite, #, %SettingsName%, Hotkeys, PasteEmployeeNumber
 	}
@@ -47,5 +47,6 @@
 		IniRead, EmailAddress, %SettingsName%, Details, EmailAddress
 		IniRead, EmployeeNumber, %SettingsName%, Details, EmployeeNumber
 		IniRead, UseMediaControls, %SettingsName%, Hotkeys, UseMediaControls
+		IniRead, UseBrightnessControls, %SettingsName%, Hotkeys, UseBrightnessControls
 	}
 }
