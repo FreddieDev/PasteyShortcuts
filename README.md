@@ -26,9 +26,12 @@ You can override this by pasting with `CTRL+SHIFT+V`.
 	- If you've made mistakes, right click the tray icon and select "Change Settings" to reconfigure
 	- You can now delete the downloaded files to cleanup
 
-### Uninstalling/repairing
+## Uninstalling/repairing
 1. Click [here](../../archive/master.zip) to download the app
 2. Unzip the file and run `installer.bat`
+
+<br/>
+<br/>
 
 ## Editing settings manually (advanced)
 Simply open `PasteyShortcuts.ini` in Notepad and change values. Here, you can:
