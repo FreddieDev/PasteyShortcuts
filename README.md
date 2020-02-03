@@ -1,16 +1,20 @@
 # Welcome to PasteyShortcuts
-PasteyShortcuts adds the following configurable hotkeys:
+### Shortcuts to your details:
 - Double tap `@` to paste your email address
 - Double tap `#` to paste your employee number
 
-PasteyShortcuts also adds media controls:
+### Enchanced copy-paste
+PasteyShortcuts detects when you're copying one word and strips whitespace.
+You can override this by pasting with `CTRL+SHIFT+V`.
+
+### Media controls:
 - `CTRL+ALT+SPACE` to pause/play
 - `CTRL+ALT+LEFT ARROW` for previous
 - `CTRL+ALT+RIGHT ARROW` for next
 - `CTRL+ALT+UP ARROW` to increase volume
 - `CTRL+ALT+DOWN ARROW` to decrease volume
 
-... and brightness controls (for laptops):
+### ... and brightness controls (for laptops):
 - `CTRL+SHIFT+UP ARROW` to increase brightness
 - `CTRL+SHIFT+DOWN ARROW` to decrease brightness
 
