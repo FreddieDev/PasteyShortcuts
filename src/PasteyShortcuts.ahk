@@ -9,13 +9,15 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 
 
-; Global vars (leave empty)
-global EmailAddress :=
-global EmployeeNumber :=
-global EmailAddressKey :=
-global EmployeeNumberKey :=
-global UseMediaControls :=
-global UseBrightnessControls :=
+; Global vars (with default values)
+global EmailAddress := ""
+global EmployeeNumber := ""
+global EmailAddressKey := "@"
+global EmployeeNumberKey := "#"
+global UseMediaControls := false
+global UseBrightnessControls := false
+global UseClipboardTrimmer := true
+global OrigClipboard := clipboard
 
 ; Vars
 SettingsName := "PasteyShortcuts.ini"
@@ -55,8 +57,8 @@ if (!FileExist(SettingsName)) {
 }
 
 ; Load hotkeys into global variables
-IniRead, EmailAddressKey, %SettingsName%, Hotkeys, PasteEmailAddress
-IniRead, EmployeeNumberKey, %SettingsName%, Hotkeys, PasteEmployeeNumber
+IniRead, EmailAddressKey, %SettingsName%, Hotkeys, PasteEmailAddress, %EmailAddressKey%
+IniRead, EmployeeNumberKey, %SettingsName%, Hotkeys, PasteEmployeeNumber, %EmployeeNumberKey%
 
 ; Register hotkeys
 Hotkey, ~$%EmailAddressKey%, EmailAddressKeyHandler
@@ -80,7 +82,15 @@ if (UseBrightnessControls) {
 }
 
 
+if (UseClipboardTrimmer) {
+	OnClipboardChange("ClipChanged")
+	Hotkey, ^+V, CTRLShiftVHandler
+}
+
 return ; Stop handlers running on script start
+
+
+
 
 
 
@@ -170,3 +180,39 @@ EmployeeNumberKeyHandler:
 	If (ErrorLevel = 0)
 	send, {backspace 2}%EmployeeNumber%
 	return
+
+
+ClipChanged(Type) {
+	global
+
+	; Check data is text
+	if (Type = 1) {
+		OrigClipboard := clipboard
+		
+		; Use replace to count words
+		RegExReplace(OrigClipboard, "\b\S+\b", "", totalWords)
+		
+		; Only trim whitespace if there's only one word
+		if (totalWords = 1) {
+			; Only notify/overwrite clipboard if there's whitespace to be trimmed
+			if (StrLen(clipboard) != StrLen(Trim(OrigClipboard))) {
+				ToolTip, CTRL+SHIFT+V to paste with whitespace
+				clipboard := Trim(OrigClipboard)
+			}
+		}
+		
+		; Turn off the tip
+		Sleep 1000
+		ToolTip
+
+		return
+	}
+}
+
+
+CTRLShiftVHandler:
+	if (OrigClipboard) {
+		Send, %OrigClipboard%
+		return
+	}
+	
